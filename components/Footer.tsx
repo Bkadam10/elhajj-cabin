@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Translations } from '../types';
-import { Facebook, Instagram, Phone, Mail, MapPin } from 'lucide-react';
+import { Facebook, Instagram, Phone, Mail, MapPin, Linkedin } from 'lucide-react';
 
 interface FooterProps {
     t: Translations['footer'];
@@ -15,64 +15,83 @@ const Footer: React.FC<FooterProps> = ({ t, lang }) => {
     };
 
     return (
-        <footer className="bg-primary text-white pt-20 pb-10">
+        <footer className="bg-dark text-white pt-24 pb-12 border-t border-gray-800">
             <div className="container mx-auto px-6 md:px-12">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
                     
-                    {/* Col 1: Brand */}
-                    <div>
-                        <div className="flex items-center gap-2 mb-6">
+                    {/* Brand */}
+                    <div className="lg:col-span-1">
+                        <div className="flex items-center gap-3 mb-8">
                             <div className="w-10 h-10 bg-white text-primary rounded-lg flex items-center justify-center font-serif font-bold text-xl">
                                 A
                             </div>
                             <span className="text-2xl font-serif font-bold">Atlas Dental</span>
                         </div>
-                        <p className="text-blue-200 mb-6 leading-relaxed max-w-sm">
+                        <p className="text-gray-400 mb-8 leading-relaxed text-sm">
                             {t.tagline}
                         </p>
                         <div className="flex gap-4">
-                            <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent hover:text-white transition-all">
-                                <Facebook size={20} />
+                            <a href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-secondary hover:text-white transition-all duration-300">
+                                <Facebook size={18} />
                             </a>
-                            <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent hover:text-white transition-all">
-                                <Instagram size={20} />
+                            <a href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-secondary hover:text-white transition-all duration-300">
+                                <Instagram size={18} />
+                            </a>
+                            <a href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-secondary hover:text-white transition-all duration-300">
+                                <Linkedin size={18} />
                             </a>
                         </div>
                     </div>
 
-                    {/* Col 2: Quick Links */}
+                    {/* Quick Links */}
                     <div>
-                        <h4 className="text-lg font-bold mb-6 text-accent">{t.quick_links}</h4>
+                        <h4 className="text-lg font-bold mb-8 text-white">{t.quick_links}</h4>
                         <ul className="space-y-4">
-                            <li><button onClick={() => scrollTo('#about')} className="text-blue-200 hover:text-white hover:translate-x-2 transition-all">About Us</button></li>
-                            <li><button onClick={() => scrollTo('#services')} className="text-blue-200 hover:text-white hover:translate-x-2 transition-all">Services</button></li>
-                            <li><button onClick={() => scrollTo('#booking')} className="text-blue-200 hover:text-white hover:translate-x-2 transition-all">Book Appointment</button></li>
+                            <li><button onClick={() => scrollTo('#home')} className="text-gray-400 hover:text-white hover:translate-x-1 transition-all text-sm">Home</button></li>
+                            <li><button onClick={() => scrollTo('#about')} className="text-gray-400 hover:text-white hover:translate-x-1 transition-all text-sm">About Us</button></li>
+                            <li><button onClick={() => scrollTo('#services')} className="text-gray-400 hover:text-white hover:translate-x-1 transition-all text-sm">Our Services</button></li>
+                            <li><button onClick={() => scrollTo('#booking')} className="text-gray-400 hover:text-white hover:translate-x-1 transition-all text-sm">Book Online</button></li>
                         </ul>
                     </div>
 
-                    {/* Col 3: Contact */}
-                    <div>
-                        <h4 className="text-lg font-bold mb-6 text-accent">{t.contact_info}</h4>
+                     {/* Services */}
+                     <div>
+                        <h4 className="text-lg font-bold mb-8 text-white">Services</h4>
                         <ul className="space-y-4">
-                            <li className="flex items-start gap-3 text-blue-200">
+                            <li className="text-gray-400 text-sm">General Dentistry</li>
+                            <li className="text-gray-400 text-sm">Cosmetic Whitening</li>
+                            <li className="text-gray-400 text-sm">Orthodontics</li>
+                            <li className="text-gray-400 text-sm">Dental Implants</li>
+                        </ul>
+                    </div>
+
+                    {/* Contact */}
+                    <div>
+                        <h4 className="text-lg font-bold mb-8 text-white">{t.contact_info}</h4>
+                        <ul className="space-y-6">
+                            <li className="flex items-start gap-4 text-gray-400">
                                 <MapPin size={20} className="mt-1 flex-shrink-0 text-secondary" />
-                                <span>{t.address}</span>
+                                <span className="text-sm leading-relaxed">{t.address}</span>
                             </li>
-                            <li className="flex items-center gap-3 text-blue-200">
+                            <li className="flex items-center gap-4 text-gray-400">
                                 <Phone size={20} className="flex-shrink-0 text-secondary" />
-                                <span>+212 555 123 456</span>
+                                <span className="text-sm">+212 555 123 456</span>
                             </li>
-                            <li className="flex items-center gap-3 text-blue-200">
+                            <li className="flex items-center gap-4 text-gray-400">
                                 <Mail size={20} className="flex-shrink-0 text-secondary" />
-                                <span>contact@atlasdental.ma</span>
+                                <span className="text-sm">contact@atlasdental.ma</span>
                             </li>
                         </ul>
                     </div>
                 </div>
 
                 {/* Bottom */}
-                <div className="border-t border-white/10 pt-8 text-center text-blue-300 text-sm">
+                <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-gray-500 text-sm">
                     <p>&copy; {new Date().getFullYear()} Atlas Dental Care. {t.rights}</p>
+                    <div className="flex gap-6">
+                        <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+                        <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+                    </div>
                 </div>
             </div>
         </footer>

@@ -2,7 +2,7 @@
 import React from 'react';
 import { Translations } from '../types';
 import ScrollReveal from './ScrollReveal';
-import { ChevronDown, Phone } from 'lucide-react';
+import { Phone, CalendarCheck, Star } from 'lucide-react';
 
 interface HeroProps {
     t: Translations['hero'];
@@ -19,56 +19,71 @@ const Hero: React.FC<HeroProps> = ({ t, lang }) => {
     };
 
     return (
-        <section id="home" className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
+        <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
                 <img 
-                    src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=2000" 
+                    src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=2000" 
                     alt="Modern Dental Office" 
                     className="w-full h-full object-cover"
                 />
-                {/* Overlay - Dark Blue/Teal Mix */}
-                <div className="absolute inset-0 bg-primary/40 mix-blend-multiply"></div>
-                <div className="absolute inset-0 bg-black/30"></div>
+                {/* Modern Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-transparent"></div>
             </div>
 
             {/* Content */}
-            <div className="container mx-auto px-6 md:px-12 relative z-10 text-center">
-                <ScrollReveal>
-                    <h1 className={`text-5xl md:text-7xl font-bold text-white mb-6 leading-tight drop-shadow-md ${lang === 'ar' ? 'font-arabic' : 'font-serif'}`}>
-                        {t.title}
-                    </h1>
-                </ScrollReveal>
+            <div className="container mx-auto px-6 md:px-12 relative z-10 pt-20">
+                <div className="max-w-2xl text-white">
+                    <ScrollReveal>
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm font-medium mb-6">
+                            <Star size={14} className="text-accent fill-accent" />
+                            <span>#1 Dental Clinic in Meknès</span>
+                        </div>
+                        
+                        <h1 className={`text-5xl md:text-7xl font-bold mb-6 leading-[1.1] drop-shadow-sm ${lang === 'ar' ? 'font-arabic' : 'font-serif'}`}>
+                            {t.title}
+                        </h1>
+                    </ScrollReveal>
 
-                <ScrollReveal delay={0.2}>
-                    <p className="text-xl md:text-2xl text-gray-100 mb-10 max-w-3xl mx-auto font-light leading-relaxed">
-                        {t.subtitle}
-                    </p>
-                </ScrollReveal>
+                    <ScrollReveal delay={0.2}>
+                        <p className="text-lg md:text-xl text-gray-200 mb-10 font-light leading-relaxed max-w-lg">
+                            {t.subtitle}
+                        </p>
+                    </ScrollReveal>
 
-                <ScrollReveal delay={0.4}>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                        <a 
-                            href="#booking" 
-                            onClick={(e) => handleScroll(e, '#booking')}
-                            className="bg-secondary text-white min-w-[200px] px-8 py-4 rounded-full hover:bg-teal-700 transition-all duration-300 font-semibold text-lg shadow-lg hover:-translate-y-1"
-                        >
-                            {t.cta_primary}
-                        </a>
-                        <a 
-                            href="tel:+212555123456"
-                            className="bg-transparent border-2 border-white text-white min-w-[200px] px-8 py-4 rounded-full hover:bg-white hover:text-primary transition-all duration-300 font-semibold text-lg flex items-center justify-center gap-2"
-                        >
-                            <Phone size={20} />
-                            {t.cta_secondary}
-                        </a>
-                    </div>
-                </ScrollReveal>
-            </div>
-
-            {/* Scroll Indicator */}
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce text-white/80">
-                <ChevronDown size={32} />
+                    <ScrollReveal delay={0.4}>
+                        <div className="flex flex-col sm:flex-row gap-4">
+                            <a 
+                                href="#booking" 
+                                onClick={(e) => handleScroll(e, '#booking')}
+                                className="bg-white text-primary min-w-[180px] px-8 py-4 rounded-full hover:bg-gray-100 transition-all duration-300 font-bold text-lg shadow-xl shadow-black/10 flex items-center justify-center gap-2 group"
+                            >
+                                <CalendarCheck size={20} className="group-hover:scale-110 transition-transform" />
+                                {t.cta_primary}
+                            </a>
+                            <a 
+                                href="tel:+212555123456"
+                                className="bg-white/10 backdrop-blur-sm border border-white/30 text-white min-w-[180px] px-8 py-4 rounded-full hover:bg-white hover:text-primary transition-all duration-300 font-bold text-lg flex items-center justify-center gap-2"
+                            >
+                                <Phone size={20} />
+                                {t.cta_secondary}
+                            </a>
+                        </div>
+                    </ScrollReveal>
+                    
+                    <ScrollReveal delay={0.6}>
+                        <div className="mt-12 flex items-center gap-8 text-white/80">
+                            <div className="border-l-2 border-accent pl-4">
+                                <span className="block text-2xl font-bold text-white">2.5k+</span>
+                                <span className="text-sm">Happy Patients</span>
+                            </div>
+                            <div className="border-l-2 border-accent pl-4">
+                                <span className="block text-2xl font-bold text-white">15+</span>
+                                <span className="text-sm">Years Experience</span>
+                            </div>
+                        </div>
+                    </ScrollReveal>
+                </div>
             </div>
         </section>
     );

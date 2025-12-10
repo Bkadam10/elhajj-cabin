@@ -2,7 +2,7 @@
 import React from 'react';
 import { Service, Translations } from '../types';
 import ScrollReveal from './ScrollReveal';
-import { Sparkles, Activity, Smile, ArrowRight } from 'lucide-react';
+import { Sparkles, Stethoscope, Smile, ArrowRight, ShieldPlus, Activity, HeartPulse } from 'lucide-react';
 
 interface ServicesProps {
     services: Service[];
@@ -18,22 +18,28 @@ const Services: React.FC<ServicesProps> = ({ services, t, lang }) => {
         }
     };
 
-    // Helper to assign random icons since we don't have them in DB yet
     const getIcon = (idx: number) => {
-        const icons = [<Sparkles />, <Activity />, <Smile />];
+        const icons = [
+            <Stethoscope strokeWidth={1.5} />, 
+            <Sparkles strokeWidth={1.5} />, 
+            <Smile strokeWidth={1.5} />,
+            <ShieldPlus strokeWidth={1.5} />,
+            <Activity strokeWidth={1.5} />,
+            <HeartPulse strokeWidth={1.5} />
+        ];
         return icons[idx % icons.length];
     };
 
     return (
-        <section id="services" className="py-24 bg-surface relative">
+        <section id="services" className="py-32 bg-surface">
             <div className="container mx-auto px-6 md:px-12">
                 <ScrollReveal>
-                    <div className="text-center mb-16">
-                        <h2 className="text-4xl md:text-5xl font-serif font-bold text-primary mb-4 inline-block relative">
+                    <div className="text-center max-w-3xl mx-auto mb-20">
+                        <span className="text-secondary font-bold tracking-widest uppercase text-sm mb-3 block">Our Expertise</span>
+                        <h2 className="text-4xl md:text-5xl font-serif font-bold text-primary mb-6">
                             {t.title}
-                            <div className="h-1 w-20 bg-secondary mx-auto mt-4 rounded-full"></div>
                         </h2>
-                        <p className="text-lg text-gray-500 mt-4 max-w-2xl mx-auto">
+                        <p className="text-lg text-gray-500">
                             {t.subtitle}
                         </p>
                     </div>
@@ -43,26 +49,27 @@ const Services: React.FC<ServicesProps> = ({ services, t, lang }) => {
                     {services.map((service, index) => (
                         <ScrollReveal key={service.id} delay={index * 0.1}>
                             <div 
-                                className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group hover:-translate-y-2 h-full flex flex-col"
+                                onClick={handleServiceClick}
+                                className="bg-white p-10 rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-300 border border-gray-100 group hover:-translate-y-2 cursor-pointer h-full flex flex-col relative overflow-hidden"
                             >
-                                <div className="w-14 h-14 bg-blue-50 text-primary rounded-full flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-                                    {getIcon(index)}
+                                {/* Top colored line */}
+                                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-secondary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+
+                                <div className="w-16 h-16 bg-blue-50 text-primary rounded-2xl flex items-center justify-center mb-8 group-hover:bg-primary group-hover:text-white transition-all duration-300 group-hover:rotate-3">
+                                    {React.cloneElement(getIcon(index) as React.ReactElement, { size: 32 })}
                                 </div>
                                 
-                                <h3 className="text-2xl font-bold text-dark mb-3 group-hover:text-primary transition-colors">
+                                <h3 className="text-2xl font-bold text-primary mb-4 group-hover:text-secondary transition-colors font-serif">
                                     {lang === 'fr' ? service.title_fr : service.title_ar}
                                 </h3>
                                 
-                                <p className="text-gray-500 leading-relaxed mb-6 flex-grow">
+                                <p className="text-gray-500 leading-relaxed mb-8 flex-grow">
                                     {lang === 'fr' ? service.description_fr : service.description_ar}
                                 </p>
                                 
-                                <button 
-                                    onClick={handleServiceClick}
-                                    className="flex items-center gap-2 text-sm font-bold text-secondary uppercase tracking-widest group-hover:gap-3 transition-all"
-                                >
+                                <div className="flex items-center gap-2 text-sm font-bold text-primary uppercase tracking-wider group-hover:gap-4 transition-all mt-auto">
                                     {t.book_btn} <ArrowRight size={16} />
-                                </button>
+                                </div>
                             </div>
                         </ScrollReveal>
                     ))}
