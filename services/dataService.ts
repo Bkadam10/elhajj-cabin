@@ -1,7 +1,7 @@
 
 import { supabase, isSupabaseConfigured } from '../supabaseClient';
 import { MOCK_SERVICES, TIME_SLOTS, MOCK_DENTISTS } from '../constants';
-import { Service, Appointment, Dentist } from '../types';
+import { Service, Appointment, Dentist, Slot } from '../types';
 
 export const fetchServices = async (): Promise<Service[]> => {
     if (isSupabaseConfigured && supabase) {
@@ -21,51 +21,48 @@ export const fetchDentists = async (): Promise<Dentist[]> => {
 
 export const fetchAvailableSlots = async (date: string): Promise<string[]> => {
     if (isSupabaseConfigured && supabase) {
-        // Use the secure RPC function we created in SQL
-        // This prevents the frontend from needing direct read access to the appointments table
-        const { data, error } = await supabase.rpc('get_booked_slots', { check_date: date });
+        // NEW LOGIC: Query the 'slots' table directly
+        // We only want slots that are "Available"
+        const { data, error } = await supabase
+            .from('slots')
+            .select('slot_time')
+            .eq('slot_date', date)
+            .eq('status', 'Available')
+            .order('slot_time');
 
         if (error) {
             console.error("Error fetching slots", error);
-            // If error (e.g., RPC doesn't exist yet), fall back to showing all slots
-            // In production, you might want to show error or no slots
-            return TIME_SLOTS;
+            return [];
         }
 
-        // data returned from RPC is an array of objects: [{ "booked_time": "10:00 AM" }, ...]
-        const bookedTimes = (data as any[]).map((row: any) => row.booked_time);
-        
-        // Return only slots that are NOT in bookedTimes
-        return TIME_SLOTS.filter(slot => !bookedTimes.includes(slot));
+        // Return just the time strings
+        return data.map((row: any) => row.slot_time);
     }
 
-    // Mock logic for demo mode
+    // Mock logic fallback
     return new Promise((resolve) => {
         setTimeout(() => {
-            resolve(TIME_SLOTS.filter(() => Math.random() > 0.3));
+            resolve([]);
         }, 500);
     });
 };
 
 export const createAppointment = async (appt: Appointment): Promise<boolean> => {
     if (isSupabaseConfigured && supabase) {
-        const { error } = await supabase.from('appointments').insert([{
-            full_name: appt.full_name,
-            email: appt.email,
-            phone: appt.phone,
-            service_name: appt.service_name,
-            appointment_date: appt.appointment_date,
-            appointment_time: appt.appointment_time,
-            notes: appt.notes,
-            status: 'Pending'
-        }]);
+        // USE RPC to safely book slot
+        const { error } = await supabase.rpc('book_appointment_rpc', {
+            p_full_name: appt.full_name,
+            p_email: appt.email,
+            p_phone: appt.phone,
+            p_service_name: appt.service_name,
+            p_date: appt.appointment_date,
+            p_time: appt.appointment_time,
+            p_notes: appt.notes
+        });
 
         if (error) {
             console.error("Booking failed:", error.message);
-            // Check for unique violation (double booking race condition)
-            if (error.code === '23505') { 
-                alert("Sorry, this time slot was just booked by someone else. Please choose another time.");
-            }
+            alert("This slot is no longer available. Please choose another.");
             return false;
         }
         return true;

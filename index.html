@@ -5,16 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Atlas Dental Care Morocco</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Cairo:wght@300;400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Cairo:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
-              primary: '#2C5F56', // Deep elegant teal
-              secondary: '#1C1917', // Stone 900
-              accent: '#C4A484', // Light brown/Goldish
-              surface: '#FAFAF9', // Stone 50
+              primary: '#1E3A8A', // Deep Royal Blue
+              secondary: '#0D9488', // Teal/Turquoise
+              accent: '#F59E0B', // Gold
+              surface: '#F9FAFB', // Light Gray
+              dark: '#1F2937', // Gray 900
             },
             fontFamily: {
               sans: ['Inter', 'sans-serif'],
@@ -26,19 +27,19 @@
       }
     </script>
     <style>
-      /* Custom scrollbar for webkit */
+      /* Custom scrollbar */
       ::-webkit-scrollbar {
-        width: 8px;
+        width: 10px;
       }
       ::-webkit-scrollbar-track {
-        background: #FAFAF9;
+        background: #F3F4F6;
       }
       ::-webkit-scrollbar-thumb {
-        background: #E7E5E4;
-        border-radius: 4px;
+        background: #CBD5E1;
+        border-radius: 5px;
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: #D6D3D1;
+        background: #94A3B8;
       }
     </style>
   <script type="importmap">
@@ -55,7 +56,7 @@
 }
 </script>
 </head>
-  <body class="bg-surface text-secondary antialiased selection:bg-primary selection:text-white">
+  <body class="bg-white text-dark antialiased selection:bg-primary selection:text-white">
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
   </body>

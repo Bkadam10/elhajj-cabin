@@ -32,27 +32,71 @@ export interface Appointment {
     notes?: string;
 }
 
+export interface Slot {
+    id: string;
+    slot_date: string;
+    slot_time: string;
+    status: 'Available' | 'Booked' | 'Blocked';
+    appointment_id?: string;
+}
+
+export interface ClinicSettings {
+    id: string;
+    clinic_name: string;
+    phone: string;
+    email: string;
+    address: string;
+    whatsapp: string;
+}
+
+export interface SlotGenerationConfig {
+    startDate: string;
+    endDate: string;
+    weekdays: number[]; // 0=Sunday, 1=Monday...
+    startTime: string; // "09:00"
+    endTime: string; // "17:00"
+    durationMinutes: number;
+    breakStart?: string; // "12:00"
+    breakEnd?: string; // "14:00"
+}
+
 export interface Translations {
     nav: {
         home: string;
+        about: string;
         services: string;
         book: string;
-        admin: string;
-        about: string;
         contact: string;
     };
     hero: {
         title: string;
         subtitle: string;
-        cta: string;
+        cta_primary: string;
+        cta_secondary: string;
+    };
+    about: {
+        title: string;
+        subtitle: string;
+        content: string;
+        features: {
+            f1: { title: string; desc: string; };
+            f2: { title: string; desc: string; };
+            f3: { title: string; desc: string; };
+            f4: { title: string; desc: string; };
+        }
     };
     services: {
         title: string;
         subtitle: string;
+        book_btn: string;
     };
     dentists: {
         title: string;
-        subtitle?: string;
+    };
+    cta: {
+        title: string;
+        subtitle: string;
+        button: string;
     };
     booking: {
         steps: {
@@ -77,13 +121,10 @@ export interface Translations {
             success_msg: string;
         }
     };
-    admin: {
-        login: string;
-        dashboard: string;
-        total_appts: string;
-        pending: string;
-    };
     footer: {
+        tagline: string;
+        quick_links: string;
+        contact_info: string;
         rights: string;
         address: string;
     };
