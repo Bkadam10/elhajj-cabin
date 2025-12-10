@@ -200,7 +200,7 @@ const BookingWizard: React.FC<BookingWizardProps> = ({ t, lang }) => {
 
                     {step === 3 && (
                         <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-xl mx-auto">
-                            <h2 className="text-3xl font-serif text-center mb-10">{t.labels.details}</h2>
+                            <h2 className="text-3xl font-serif text-center mb-10">{t.steps.details}</h2>
                             <div className="space-y-6">
                                 <div>
                                     <label className="block text-xs uppercase tracking-widest text-stone-500 mb-2">{t.labels.name}</label>
