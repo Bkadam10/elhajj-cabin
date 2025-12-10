@@ -1,4 +1,3 @@
-
 import { Translations, Service, Dentist } from './types';
 
 export const TIME_SLOTS = [
@@ -18,11 +17,11 @@ export const TRANSLATIONS: Record<'fr' | 'ar', Translations> = {
             book: "Rendez-vous",
             admin: "Admin",
             about: "Le Cabinet",
-            contact: "Rendez-vous"
+            contact: "Contact"
         },
         hero: {
             title: "L'Art Dentaire",
-            subtitle: "Une approche minimaliste et moderne de la dentisterie au cœur de Casablanca.",
+            subtitle: "Une approche minimaliste et moderne de la dentisterie au cœur de Meknès.",
             cta: "Réserver une Consultation"
         },
         services: {
@@ -63,7 +62,7 @@ export const TRANSLATIONS: Record<'fr' | 'ar', Translations> = {
         },
         footer: {
             rights: "Tous droits réservés.",
-            address: "Casablanca, Maroc"
+            address: "Meknès, Maroc"
         }
     },
     ar: {
@@ -72,12 +71,12 @@ export const TRANSLATIONS: Record<'fr' | 'ar', Translations> = {
             services: "علاجات",
             book: "حجز موعد",
             admin: "إدارة",
-            about: "من نحن",
-            contact: "حجز موعد"
+            about: "عن العيادة",
+            contact: "اتصل بنا"
         },
         hero: {
             title: "فن طب الأسنان",
-            subtitle: "نهج بسيط وحديث لطب الأسنان في قلب الدار البيضاء.",
+            subtitle: "نهج بسيط وحديث لطب الأسنان في قلب مكناس.",
             cta: "احجز استشارة"
         },
         services: {
@@ -118,41 +117,16 @@ export const TRANSLATIONS: Record<'fr' | 'ar', Translations> = {
         },
         footer: {
             rights: "كل الحقوق محفوظة.",
-            address: "الدار البيضاء، المغرب"
+            address: "مكناس، المغرب"
         }
     }
 };
 
 export const MOCK_SERVICES: Service[] = [
-    { id: '1', title_fr: 'Consultation Générale', title_ar: 'استشارة عامة', price: '300 MAD' },
-    { id: '2', title_fr: 'Nettoyage & Blanchiment', title_ar: 'تتنظيف وتبييض', price: '800 MAD' },
-    { id: '3', title_fr: 'Orthodontie', title_ar: 'تقويم الأسنان', price: 'Sur Devis' },
-    { id: '4', title_fr: 'Urgence Dentaire', title_ar: 'طوارئ الأسنان', price: '400 MAD' }
+    { id: '1', title_fr: 'Consultation Générale', title_ar: 'استشارة عامة', price: '300 MAD', description_fr: 'Diagnostic complet et plan de traitement.', description_ar: 'تشخيص شامل وخطة علاج.' },
+    { id: '2', title_fr: 'Nettoyage & Blanchiment', title_ar: 'تنظيف وتبييض', price: '800 MAD', description_fr: 'Détartrage et blanchiment pour un sourire éclatant.', description_ar: 'إزالة الجير والتبييض لابتسامة مشرقة.' },
+    { id: '3', title_fr: 'Orthodontie', title_ar: 'تقويم الأسنان', price: 'Sur Devis', description_fr: 'Alignement dentaire pour enfants et adultes.', description_ar: 'تقويم الأسنان للأطفال والكبار.' },
+    { id: '4', title_fr: 'Urgence Dentaire', title_ar: 'طوارئ الأسنان', price: '400 MAD', description_fr: 'Soulagement immédiat de la douleur.', description_ar: 'تخفيف فوري للألم.' }
 ];
 
-export const MOCK_DENTISTS: Dentist[] = [
-    {
-        id: '1',
-        name: 'Dr. Sarah Alami',
-        title: 'Chirurgien Dentiste',
-        image_url: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=300&h=400',
-        bio_fr: 'Spécialiste en dentisterie esthétique avec plus de 10 ans d\'expérience.',
-        bio_ar: 'أخصائية في طب الأسنان التجميلي بخبرة تزيد عن 10 سنوات.'
-    },
-    {
-        id: '2',
-        name: 'Dr. Karim Tazi',
-        title: 'Orthodontiste',
-        image_url: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=300&h=400',
-        bio_fr: 'Expert en orthodontie invisible et traitements modernes.',
-        bio_ar: 'خبير في تقويم الأسنان الشفاف والعلاجات الحديثة.'
-    },
-    {
-        id: '3',
-        name: 'Dr. Lina Berrada',
-        title: 'Parodontologue',
-        image_url: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&q=80&w=300&h=400',
-        bio_fr: 'Passionnée par la santé des gencives et la chirurgie implantaire.',
-        bio_ar: 'شغوفة بصحة اللثة وجراحة الزراعة.'
-    }
-];
+export const MOCK_DENTISTS: Dentist[] = [];

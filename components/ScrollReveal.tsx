@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 
 interface ScrollRevealProps {
@@ -33,8 +34,9 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({ children, className = "", d
 
     const style = {
         opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
-        transition: `opacity 0.8s ease-out ${delay}s, transform 0.8s ease-out ${delay}s`
+        transform: isVisible ? 'translateY(0)' : 'translateY(30px)', // Slightly increased distance
+        // Slower duration (1.2s) for a more luxurious/aesthetic feel
+        transition: `opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s, transform 1.2s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s`
     };
 
     return (

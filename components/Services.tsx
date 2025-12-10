@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Service, Translations } from '../types';
 import ScrollReveal from './ScrollReveal';
@@ -9,6 +10,13 @@ interface ServicesProps {
 }
 
 const Services: React.FC<ServicesProps> = ({ services, t, lang }) => {
+    const handleServiceClick = () => {
+        const bookingSection = document.querySelector('#booking');
+        if (bookingSection) {
+            bookingSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     return (
         <section id="services" className="py-32 bg-white">
             <div className="container mx-auto px-6 md:px-12">
@@ -24,7 +32,10 @@ const Services: React.FC<ServicesProps> = ({ services, t, lang }) => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
                     {services.map((service, index) => (
                         <ScrollReveal key={service.id} delay={index * 0.1}>
-                            <div className="group cursor-default">
+                            <div 
+                                onClick={handleServiceClick}
+                                className="group cursor-pointer hover:bg-stone-50 p-6 -m-6 rounded-2xl transition-all duration-300"
+                            >
                                 <span className="text-xs font-bold text-accent mb-2 block">0{index + 1}</span>
                                 <h3 className="text-2xl font-serif text-secondary mb-3 group-hover:text-primary transition-colors">
                                     {lang === 'fr' ? service.title_fr : service.title_ar}
@@ -32,6 +43,9 @@ const Services: React.FC<ServicesProps> = ({ services, t, lang }) => {
                                 <p className="text-stone-500 leading-relaxed font-light">
                                     {lang === 'fr' ? service.description_fr : service.description_ar}
                                 </p>
+                                <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity text-xs font-bold text-primary uppercase tracking-widest">
+                                    Book Now &rarr;
+                                </div>
                             </div>
                         </ScrollReveal>
                     ))}

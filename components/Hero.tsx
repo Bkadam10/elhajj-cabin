@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Translations } from '../types';
 import ScrollReveal from './ScrollReveal';
@@ -8,6 +9,14 @@ interface HeroProps {
 }
 
 const Hero: React.FC<HeroProps> = ({ t, lang }) => {
+    const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+        e.preventDefault();
+        const element = document.querySelector(id);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     return (
         <section id="home" className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
             {/* Soft, abstract background */}
@@ -27,7 +36,7 @@ const Hero: React.FC<HeroProps> = ({ t, lang }) => {
                 <div className="max-w-2xl">
                     <ScrollReveal>
                         <span className="block text-accent uppercase tracking-[0.2em] text-sm mb-4 font-bold">
-                            Casablanca, Morocco
+                            Meknes, Morocco
                         </span>
                     </ScrollReveal>
                     
@@ -46,16 +55,18 @@ const Hero: React.FC<HeroProps> = ({ t, lang }) => {
                     <ScrollReveal delay={0.6}>
                         <div className="flex gap-6 items-center">
                             <a 
-                                href="#appointment" 
+                                href="#booking" 
+                                onClick={(e) => handleScroll(e, '#booking')}
                                 className="bg-primary text-white px-8 py-3 rounded-full hover:bg-teal-800 transition-all duration-300 text-sm tracking-wide uppercase shadow-lg shadow-teal-900/10"
                             >
                                 {t.cta}
                             </a>
                             <a 
-                                href="tel:+212522000000" 
-                                className="text-secondary hover:text-primary transition-colors border-b border-transparent hover:border-primary pb-0.5"
+                                href="#contact"
+                                onClick={(e) => handleScroll(e, '#booking')}
+                                className="text-secondary hover:text-primary transition-colors border-b border-transparent hover:border-primary pb-0.5 cursor-pointer"
                             >
-                                +212 522 123 456
+                                +212 555 123 456
                             </a>
                         </div>
                     </ScrollReveal>

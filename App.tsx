@@ -4,19 +4,17 @@ import Layout from './components/Layout';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Services from './components/Services';
-import Dentists from './components/Dentists';
 import BookingWizard from './components/BookingWizard';
 import AdminDashboard from './components/AdminDashboard';
 import Footer from './components/Footer';
 import ScrollReveal from './components/ScrollReveal';
 import { TRANSLATIONS } from './constants';
-import { fetchDentists } from './services/dataService';
-import { Dentist, Language } from './types';
+import { fetchServices } from './services/dataService';
+import { Service, Language } from './types';
 
 const App: React.FC = () => {
     const [lang, setLang] = useState<Language>('fr');
-    const [dentists, setDentists] = useState<Dentist[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [services, setServices] = useState<Service[]>([]);
     const [view, setView] = useState<'home' | 'admin'>('home');
 
     const t = TRANSLATIONS[lang];
@@ -24,39 +22,26 @@ const App: React.FC = () => {
     useEffect(() => {
         const loadData = async () => {
             try {
-                const d = await fetchDentists();
-                setDentists(d);
+                const s = await fetchServices();
+                setServices(s);
             } catch (error) {
                 console.error("Failed to load data", error);
-            } finally {
-                setLoading(false);
             }
         };
         loadData();
 
-        // Simple hash router for admin access
         const handleHashChange = () => {
             if (window.location.hash === '#admin') setView('admin');
             else setView('home');
         };
         window.addEventListener('hashchange', handleHashChange);
-        handleHashChange(); // Check on init
+        handleHashChange();
 
         return () => window.removeEventListener('hashchange', handleHashChange);
     }, []);
 
     if (view === 'admin') {
         return <AdminDashboard />;
-    }
-
-    if (loading) {
-        return (
-            <div className="min-h-screen flex items-center justify-center bg-[#F5F5F0]">
-                <div className="text-primary font-serif italic text-xl animate-pulse tracking-widest">
-                    ATLAS
-                </div>
-            </div>
-        );
     }
 
     return (
@@ -84,8 +69,7 @@ const App: React.FC = () => {
                     </div>
                 </section>
 
-                <Services services={[]} t={{title: lang === 'fr' ? 'Nos Services' : 'خدماتنا', subtitle: ''}} lang={lang} />
-                <Dentists dentists={dentists} t={{title: lang === 'fr' ? 'L\'Équipe' : 'الفريق', subtitle: ''}} lang={lang} />
+                <Services services={services} t={t.services} lang={lang} />
                 
                 <div className="bg-stone-50 py-10">
                     <div className="container mx-auto px-6 text-center mb-10">
@@ -95,7 +79,7 @@ const App: React.FC = () => {
                 </div>
             </main>
 
-            <Footer t={{rights: "All rights reserved", address: "Casablanca, Morocco"}} lang={lang} />
+            <Footer t={t.footer} lang={lang} />
         </Layout>
     );
 };
