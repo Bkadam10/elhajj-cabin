@@ -62,7 +62,7 @@ const Hero: React.FC<HeroProps> = ({ t, lang }) => {
                                 {t.cta_primary}
                             </a>
                             <a 
-                                href="tel:+212555123456"
+                                href="tel:+212632872397"
                                 className="bg-white/10 backdrop-blur-sm border border-white/30 text-white min-w-[180px] px-8 py-4 rounded-full hover:bg-white hover:text-primary transition-all duration-300 font-bold text-lg flex items-center justify-center gap-2"
                             >
                                 <Phone size={20} />

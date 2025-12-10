@@ -56,11 +56,11 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang, t }) => {
                     className="flex items-center gap-3 group"
                 >
                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-serif font-bold text-xl transition-colors duration-300 ${scrolled ? 'bg-primary text-white' : 'bg-white text-primary shadow-lg'}`}>
-                        A
+                        E
                     </div>
                     <div>
-                        <span className={`text-xl font-bold block leading-none font-serif tracking-tight transition-colors duration-300 ${scrolled ? 'text-primary' : 'text-white drop-shadow-sm'}`}>Atlas</span>
-                        <span className={`text-[10px] font-bold tracking-[0.2em] uppercase transition-colors duration-300 ${scrolled ? 'text-gray-500' : 'text-gray-200 drop-shadow-sm'}`}>Dental Care</span>
+                        <span className={`text-xl font-bold block leading-none font-serif tracking-tight transition-colors duration-300 ${scrolled ? 'text-primary' : 'text-white drop-shadow-sm'}`}>Elhajj</span>
+                        <span className={`text-[10px] font-bold tracking-[0.2em] uppercase transition-colors duration-300 ${scrolled ? 'text-gray-500' : 'text-gray-200 drop-shadow-sm'}`}>Cabinet</span>
                     </div>
                 </a>
 

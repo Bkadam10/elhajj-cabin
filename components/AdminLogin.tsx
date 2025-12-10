@@ -32,9 +32,9 @@ const AdminLogin: React.FC = () => {
                 </a>
 
                 <div className="text-center mb-8 mt-4">
-                    <div className="w-12 h-12 bg-primary text-white rounded-lg flex items-center justify-center font-serif font-bold text-xl mx-auto mb-4">A</div>
+                    <div className="w-12 h-12 bg-primary text-white rounded-lg flex items-center justify-center font-serif font-bold text-xl mx-auto mb-4">E</div>
                     <h2 className="text-2xl font-serif text-secondary">Admin Login</h2>
-                    <p className="text-stone-400 text-sm mt-2">Atlas Dental Care Management</p>
+                    <p className="text-stone-400 text-sm mt-2">Elhajj Cabinet Management</p>
                 </div>
                 
                 <form onSubmit={handleLogin} className="space-y-6">

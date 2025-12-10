@@ -20,15 +20,15 @@ export const TRANSLATIONS: Record<'fr' | 'ar', Translations> = {
             contact: "Contact"
         },
         hero: {
-            title: "Bienvenue chez Atlas Dental Care",
+            title: "Bienvenue chez Elhajj Cabinet",
             subtitle: "Votre partenaire de confiance pour des soins dentaires d'excellence à Meknès.",
             cta_primary: "Prendre Rendez-vous",
             cta_secondary: "Appelez-nous"
         },
         about: {
-            title: "À Propos de Notre Clinique",
+            title: "À Propos de Notre Cabinet",
             subtitle: "L'excellence au service de votre sourire",
-            content: "Chez Atlas Dental Care, nous combinons expertise clinique et technologie de pointe pour offrir une expérience dentaire inégalée. Notre cabinet moderne à Meknès est conçu pour votre confort et votre tranquillité d'esprit.",
+            content: "Chez Elhajj Cabinet, nous combinons expertise clinique et technologie de pointe pour offrir une expérience dentaire inégalée. Notre cabinet moderne à Meknès est conçu pour votre confort et votre tranquillité d'esprit.",
             features: {
                 f1: { title: "Professionnels Expérimentés", desc: "Une équipe dédiée à votre santé bucco-dentaire." },
                 f2: { title: "Technologie Moderne", desc: "Équipements de pointe pour des soins précis." },
@@ -77,7 +77,7 @@ export const TRANSLATIONS: Record<'fr' | 'ar', Translations> = {
             quick_links: "Liens Rapides",
             contact_info: "Coordonnées",
             rights: "Tous droits réservés.",
-            address: "Meknès, Maroc"
+            address: "Imm D Magasin, N1 Al Manssour 6, Meknès 30000"
         }
     },
     ar: {
@@ -89,7 +89,7 @@ export const TRANSLATIONS: Record<'fr' | 'ar', Translations> = {
             contact: "اتصل بنا"
         },
         hero: {
-            title: "مرحبًا بكم في أطلس لطب الأسنان",
+            title: "مرحبًا بكم في عيادة الحاج",
             subtitle: "رعايتكم الموثوقة لطب الأسنان في مكناس.",
             cta_primary: "حجز موعد",
             cta_secondary: "اتصل بنا"
@@ -97,7 +97,7 @@ export const TRANSLATIONS: Record<'fr' | 'ar', Translations> = {
         about: {
             title: "عن عيادتنا",
             subtitle: "التميز في خدمة ابتسامتكم",
-            content: "في أطلس لطب الأسنان، نجمع بين الخبرة السريرية والتكنولوجيا الحديثة لتقديم تجربة لا مثيل لها. عيادتنا في مكناس مصممة لراحتكم وسلامة بالكم.",
+            content: "في عيادة الحاج، نجمع بين الخبرة السريرية والتكنولوجيا الحديثة لتقديم تجربة لا مثيل لها. عيادتنا في مكناس مصممة لراحتكم وسلامة بالكم.",
             features: {
                 f1: { title: "خبراء متخصصون", desc: "فريق مكرس لصحة فمكم وأسنانكم." },
                 f2: { title: "تكنولوجيا حديثة", desc: "معدات متطورة لعلاجات دقيقة." },
@@ -146,7 +146,7 @@ export const TRANSLATIONS: Record<'fr' | 'ar', Translations> = {
             quick_links: "روابط سريعة",
             contact_info: "معلومات الاتصال",
             rights: "كل الحقوق محفوظة.",
-            address: "مكناس، المغرب"
+            address: "إقامة د محل رقم 1، المنصور 6، مكناس 30000"
         }
     }
 };

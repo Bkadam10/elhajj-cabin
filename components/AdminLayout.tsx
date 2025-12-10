@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { supabase } from '../supabaseClient';
 import { 
@@ -32,8 +33,8 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, activeTab, setActiv
             {/* Sidebar */}
             <aside className="w-64 bg-slate-900 text-white flex-shrink-0 hidden md:flex flex-col">
                 <div className="p-6 border-b border-slate-800 flex items-center gap-3">
-                    <div className="w-8 h-8 bg-primary rounded-md flex items-center justify-center font-bold font-serif">A</div>
-                    <span className="font-serif font-bold text-lg">Atlas Admin</span>
+                    <div className="w-8 h-8 bg-primary rounded-md flex items-center justify-center font-bold font-serif">E</div>
+                    <span className="font-serif font-bold text-lg">Elhajj Admin</span>
                 </div>
                 
                 <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
@@ -68,11 +69,11 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, activeTab, setActiv
             <div className="flex-1 flex flex-col h-screen overflow-hidden">
                 {/* Topbar */}
                 <header className="bg-white border-b border-stone-200 p-4 flex justify-between items-center shadow-sm z-10">
-                    <div className="md:hidden font-serif font-bold text-primary">Atlas Admin</div>
+                    <div className="md:hidden font-serif font-bold text-primary">Elhajj Admin</div>
                     <div className="flex-1"></div> {/* Spacer */}
                     <div className="flex items-center gap-4">
                         <div className="text-right hidden sm:block">
-                            <div className="text-sm font-bold text-secondary">Dr. Admin</div>
+                            <div className="text-sm font-bold text-secondary">Dr. Elhajj</div>
                             <div className="text-xs text-stone-400">Dentist & Owner</div>
                         </div>
                         <div className="w-10 h-10 bg-stone-100 rounded-full flex items-center justify-center text-stone-500 border border-stone-200">
