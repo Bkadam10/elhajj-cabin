@@ -17,36 +17,40 @@ const About: React.FC<AboutProps> = ({ t, lang }) => {
         { icon: <Heart size={28} />, title: t.features.f4.title, desc: t.features.f4.desc },
     ];
 
+    const clinicImages = [
+        "https://pwturwmgzhcbhbwfdecl.supabase.co/storage/v1/object/public/clinic%20images/photo_2025-12-11_06-56-41.jpg",
+        "https://pwturwmgzhcbhbwfdecl.supabase.co/storage/v1/object/public/clinic%20images/photo_2025-12-11_06-56-53.jpg",
+        "https://pwturwmgzhcbhbwfdecl.supabase.co/storage/v1/object/public/clinic%20images/photo_2025-12-11_06-56-56.jpg"
+    ];
+
     return (
         <section id="about" className="py-32 bg-white relative">
             <div className="container mx-auto px-6 md:px-12">
-                <div className="grid lg:grid-cols-2 gap-16 items-center">
+                <div className="grid lg:grid-cols-2 gap-16 items-start">
                     
-                    {/* Left: Images */}
+                    {/* Left: Real Clinic Images (Horizontal Grid) */}
                     <div className="relative">
                         <ScrollReveal>
-                            <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl">
-                                <img 
-                                    src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=800" 
-                                    alt="Dental Clinic Interior" 
-                                    className="w-full h-auto object-cover hover:scale-105 transition-transform duration-700"
-                                />
+                            <span className="text-secondary font-bold tracking-widest uppercase text-sm mb-4 block md:hidden">Our Clinic</span>
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                {clinicImages.map((img, idx) => (
+                                    <div key={idx} className="relative rounded-2xl overflow-hidden shadow-lg h-64 sm:h-80 group">
+                                        <img 
+                                            src={img} 
+                                            alt={`Elhajj Cabinet Interior ${idx + 1}`} 
+                                            className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
+                                        />
+                                        <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors"></div>
+                                    </div>
+                                ))}
                             </div>
-                            {/* Accent Image */}
-                            <div className="absolute -bottom-10 -right-10 w-2/3 rounded-2xl overflow-hidden shadow-2xl border-4 border-white z-20 hidden md:block">
-                                <img 
-                                    src="https://images.unsplash.com/photo-1588776814546-1ffcf4722e99?auto=format&fit=crop&q=80&w=600" 
-                                    alt="Happy Patient" 
-                                    className="w-full h-auto object-cover"
-                                />
-                            </div>
-                            {/* Decorative Pattern */}
-                            <div className="absolute -top-10 -left-10 w-full h-full bg-surface rounded-3xl -z-10"></div>
+                            {/* Decorative Background Element */}
+                            <div className="absolute -top-10 -left-10 w-full h-full bg-surface rounded-3xl -z-10 opacity-50"></div>
                         </ScrollReveal>
                     </div>
 
                     {/* Right: Text Content */}
-                    <div className="lg:pl-10 mt-10 lg:mt-0">
+                    <div className="lg:pl-5">
                         <ScrollReveal delay={0.2}>
                             <span className="text-secondary font-bold tracking-widest uppercase text-sm mb-2 block">Who We Are</span>
                             <h2 className="text-4xl md:text-5xl font-serif font-bold text-primary mb-6 leading-tight">
