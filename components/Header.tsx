@@ -1,6 +1,6 @@
 
-import React, { useState, useEffect } from 'react';
 import { Menu, X, Globe, Lock, ArrowRight } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
 import { Language, Translations } from '../types';
 
 interface HeaderProps {
@@ -14,7 +14,7 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang, t }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
-        const handleScroll = () => setScrolled(window.scrollY > 20);
+        const handleScroll = () => setScrolled(window.scrollY > 50);
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
@@ -23,144 +23,137 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang, t }) => {
         { label: t.home, href: '#home' },
         { label: t.about, href: '#about' },
         { label: t.services, href: '#services' },
-        { label: t.contact, href: '#booking' },
+        { label: t.contact, href: '#booking-section' },
     ];
 
     const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
         setIsOpen(false);
-        // Special handling for Admin link to allow hash change
-        if (href === '#admin') {
-             return;
-        }
-        
         e.preventDefault();
+        
+        // Handle normal section scrolling
         const element = document.querySelector(href);
         if (element) {
             element.scrollIntoView({ behavior: 'smooth' });
         }
     };
 
+    // Robust hash navigation for Admin view
+    const goToAdmin = () => {
+        setIsOpen(false);
+        window.location.hash = 'admin';
+    };
+
     return (
         <header 
-            className={`fixed w-full z-50 transition-all duration-500 border-b ${
+            className={`fixed w-full z-50 transition-all duration-700 ${
                 scrolled 
-                ? 'bg-white/95 backdrop-blur-md shadow-sm border-gray-100 py-3' 
-                : 'bg-transparent border-transparent py-5'
+                ? 'bg-white/80 backdrop-blur-2xl py-3 border-b border-gray-100 shadow-xl' 
+                : 'bg-transparent py-8 border-b border-transparent'
             }`}
         >
             <div className="container mx-auto px-6 lg:px-12 flex justify-between items-center">
-                {/* Logo */}
                 <a 
                     href="#home" 
                     onClick={(e) => handleNavClick(e, '#home')}
-                    className="flex items-center gap-3 group"
+                    className="flex items-center gap-4 group"
                 >
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-serif font-bold text-xl transition-colors duration-300 ${scrolled ? 'bg-primary text-white' : 'bg-white text-primary shadow-lg'}`}>
+                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center font-serif font-bold text-2xl transition-all duration-500 group-hover:rotate-[10deg] ${scrolled ? 'bg-primary text-white shadow-lg' : 'bg-white text-primary'}`}>
                         E
                     </div>
-                    <div>
-                        <span className={`text-xl font-bold block leading-none font-serif tracking-tight transition-colors duration-300 ${scrolled ? 'text-primary' : 'text-white drop-shadow-sm'}`}>Elhajj</span>
-                        <span className={`text-[10px] font-bold tracking-[0.2em] uppercase transition-colors duration-300 ${scrolled ? 'text-gray-500' : 'text-gray-200 drop-shadow-sm'}`}>Cabinet</span>
+                    <div className="hidden sm:block">
+                        <span className={`text-2xl font-bold block leading-none font-serif tracking-tight transition-colors duration-500 ${scrolled ? 'text-primary' : 'text-white'}`}>Elhajj</span>
+                        <span className={`text-[11px] font-bold tracking-[0.4em] uppercase transition-colors duration-500 ${scrolled ? 'text-accent' : 'text-accent/80'}`}>Cabinet</span>
                     </div>
                 </a>
 
-                {/* Desktop Nav */}
-                <nav className="hidden md:flex items-center gap-8">
+                <nav className="hidden md:flex items-center gap-10">
                     {navLinks.map((link) => (
                         <a 
                             key={link.label} 
                             href={link.href} 
                             onClick={(e) => handleNavClick(e, link.href)}
-                            className={`text-sm font-semibold tracking-wide transition-all duration-300 relative group py-2 ${scrolled ? 'text-gray-600 hover:text-primary' : 'text-white/90 hover:text-white'}`}
+                            className={`text-[13px] font-bold uppercase tracking-[0.2em] transition-all duration-500 relative group py-2 ${scrolled ? 'text-gray-600 hover:text-primary' : 'text-white/80 hover:text-white'}`}
                         >
                             {link.label}
-                            <span className={`absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${scrolled ? 'bg-primary' : 'bg-white'}`}></span>
+                            <span className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-700 group-hover:w-full ${scrolled ? 'bg-accent' : 'bg-accent'}`}></span>
                         </a>
                     ))}
                 </nav>
 
-                {/* Desktop Actions */}
-                <div className="hidden md:flex items-center gap-5">
-                    {/* Admin Link */}
-                    <a 
-                        href="#admin"
-                        className={`transition-colors p-2 hover:rotate-12 duration-300 ${scrolled ? 'text-gray-400 hover:text-primary' : 'text-white/70 hover:text-white'}`}
-                        title="Dentist Login"
-                        onClick={(e) => handleNavClick(e, '#admin')}
-                    >
-                        <Lock size={16} />
-                    </a>
+                <div className="hidden md:flex items-center gap-6">
+                    <div className="flex items-center gap-4 pr-6 border-r border-gray-100/10">
+                        <button 
+                            onClick={() => setLang(lang === 'fr' ? 'ar' : 'fr')}
+                            className={`flex items-center gap-2 text-[11px] font-bold transition-all duration-500 uppercase tracking-[0.3em] ${scrolled ? 'text-gray-500 hover:text-primary' : 'text-white/70 hover:text-white'}`}
+                        >
+                            <Globe size={16} className="text-accent" />
+                            <span>{lang === 'fr' ? 'AR' : 'FR'}</span>
+                        </button>
 
-                    <div className={`h-6 w-px ${scrolled ? 'bg-gray-200' : 'bg-white/20'}`}></div>
-
-                    <button 
-                        onClick={() => setLang(lang === 'fr' ? 'ar' : 'fr')}
-                        className={`flex items-center gap-2 text-xs font-bold transition-colors uppercase tracking-wider ${scrolled ? 'text-gray-600 hover:text-primary' : 'text-white hover:text-white/80'}`}
-                    >
-                        <Globe size={16} />
-                        <span>{lang === 'fr' ? 'AR' : 'FR'}</span>
-                    </button>
+                        {/* Programmatic Admin Trigger */}
+                        <button 
+                            onClick={goToAdmin}
+                            className={`p-2 transition-all duration-500 rounded-lg hover:bg-accent/10 ${scrolled ? 'text-gray-300 hover:text-accent' : 'text-white/20 hover:text-accent'}`}
+                            title="Administration"
+                        >
+                            <Lock size={16} />
+                        </button>
+                    </div>
                     
                     <a 
-                        href="#booking"
-                        onClick={(e) => handleNavClick(e, '#booking')}
-                        className={`px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 shadow-lg hover:-translate-y-0.5 flex items-center gap-2 ${
+                        href="#booking-section"
+                        onClick={(e) => handleNavClick(e, '#booking-section')}
+                        className={`px-10 py-4 rounded-full text-[13px] font-bold uppercase tracking-[0.2em] transition-all duration-500 shadow-2xl hover:-translate-y-1.5 flex items-center gap-3 ${
                             scrolled 
-                            ? 'bg-primary text-white hover:bg-primary/90' 
-                            : 'bg-white text-primary hover:bg-gray-100'
+                            ? 'bg-primary text-white hover:bg-secondary' 
+                            : 'bg-white text-primary hover:bg-accent hover:text-white'
                         }`}
                     >
                         {t.book}
-                        <ArrowRight size={14} />
+                        <ArrowRight size={16} />
                     </a>
                 </div>
 
-                {/* Mobile Toggle */}
-                <div className="flex items-center gap-4 md:hidden">
+                <div className="md:hidden flex items-center gap-6">
                     <button 
-                         onClick={() => setLang(lang === 'fr' ? 'ar' : 'fr')}
-                         className={`font-bold text-sm ${scrolled ? 'text-primary' : 'text-white'}`}
-                    >
-                        {lang === 'fr' ? 'AR' : 'FR'}
-                    </button>
-                    <button 
-                        className={`transition-colors ${scrolled ? 'text-primary' : 'text-white'}`}
+                        className={`p-2 transition-colors ${scrolled ? 'text-primary' : 'text-white'}`}
                         onClick={() => setIsOpen(!isOpen)}
                     >
-                        {isOpen ? <X size={28} /> : <Menu size={28} />}
+                        {isOpen ? <X size={32} /> : <Menu size={32} />}
                     </button>
                 </div>
             </div>
 
-            {/* Mobile Menu */}
-            <div className={`fixed inset-0 bg-white/98 backdrop-blur-xl z-40 flex flex-col justify-center px-8 space-y-8 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] md:hidden ${isOpen ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}`}>
-                {navLinks.map((link) => (
+            {/* Premium Mobile Menu Overlay */}
+            <div className={`fixed inset-0 bg-primary/98 backdrop-blur-3xl z-40 flex flex-col justify-center items-center space-y-12 transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] md:hidden ${isOpen ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}`}>
+                {navLinks.map((link, idx) => (
                     <a 
                         key={link.label} 
                         href={link.href}
                         onClick={(e) => handleNavClick(e, link.href)}
-                        className="text-3xl font-serif font-bold text-primary hover:text-secondary transition-colors"
+                        className={`text-5xl font-serif font-bold text-white/50 hover:text-white transition-all duration-500 tracking-tighter transform ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
+                        style={{ transitionDelay: `${idx * 100}ms` }}
                     >
                         {link.label}
                     </a>
                 ))}
-                <div className="w-12 h-1 bg-gray-100 rounded-full"></div>
-                <a
-                    href="#booking"
-                    onClick={(e) => handleNavClick(e, '#booking')}
-                    className="bg-primary text-white w-full py-4 rounded-2xl text-center font-bold text-lg shadow-xl shadow-primary/20 hover:bg-primary/90 transition-all"
-                >
-                    {t.book}
-                </a>
                 
-                <a 
-                    href="#admin"
-                    onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-2 text-gray-400 justify-center text-sm font-medium"
-                >
-                    <Lock size={14} />
-                    <span>Admin Portal</span>
-                </a>
+                <div className="flex flex-col items-center gap-8 mt-12">
+                    <button 
+                        onClick={() => setLang(lang === 'fr' ? 'ar' : 'fr')}
+                        className="text-accent text-xl font-bold uppercase tracking-widest"
+                    >
+                        {lang === 'fr' ? 'Switch to Arabic' : 'تغيير للفرنسية'}
+                    </button>
+                    
+                    <button 
+                        onClick={goToAdmin}
+                        className="flex items-center gap-3 text-white/30 hover:text-white transition-colors uppercase tracking-[0.4em] text-[10px] font-bold"
+                    >
+                        <Lock size={14} />
+                        Gestion Cabinet
+                    </button>
+                </div>
             </div>
         </header>
     );

@@ -5,11 +5,11 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
 import Services from './components/Services';
-import Cta from './components/Cta';
 import BookingWizard from './components/BookingWizard';
 import AdminDashboard from './components/AdminDashboard';
 import Footer from './components/Footer';
 import FloatingWhatsapp from './components/FloatingWhatsapp';
+import ScrollReveal from './components/ScrollReveal';
 import { TRANSLATIONS } from './constants';
 import { fetchServices } from './services/dataService';
 import { Service, Language } from './types';
@@ -18,6 +18,7 @@ const App: React.FC = () => {
     const [lang, setLang] = useState<Language>('fr');
     const [services, setServices] = useState<Service[]>([]);
     const [view, setView] = useState<'home' | 'admin'>('home');
+    const [preselectedServiceId, setPreselectedServiceId] = useState<string | null>(null);
 
     const t = TRANSLATIONS[lang];
 
@@ -42,6 +43,14 @@ const App: React.FC = () => {
         return () => window.removeEventListener('hashchange', handleHashChange);
     }, []);
 
+    const handleServiceSelection = (serviceId: string) => {
+        setPreselectedServiceId(serviceId);
+        const bookingSection = document.querySelector('#booking-section');
+        if (bookingSection) {
+            bookingSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     if (view === 'admin') {
         return <AdminDashboard />;
     }
@@ -53,14 +62,27 @@ const App: React.FC = () => {
             <main>
                 <Hero t={t.hero} lang={lang} />
                 <About t={t.about} lang={lang} />
-                <Services services={services} t={t.services} lang={lang} />
-                <Cta t={t.cta} lang={lang} />
+                <Services 
+                    services={services} 
+                    t={t.services} 
+                    lang={lang} 
+                    onServiceSelect={handleServiceSelection}
+                />
                 
-                <div className="bg-surface py-20 relative">
-                     <div className="container mx-auto px-6 text-center mb-10">
-                        <h2 className="text-4xl font-serif font-bold text-primary">{t.booking.steps.details}</h2>
+                <div id="booking-section" className="bg-[#F8F6F4] py-40 relative">
+                     <div className="container mx-auto px-6 text-center mb-24">
+                        <ScrollReveal>
+                            <span className="text-accent font-bold tracking-[0.6em] uppercase text-[10px] mb-8 block">Conciergerie Médicale</span>
+                            <h2 className="text-5xl md:text-8xl font-serif font-bold text-primary mb-12 tracking-tighter">Votre Rendez-vous</h2>
+                            <div className="w-32 h-px bg-accent/40 mx-auto"></div>
+                        </ScrollReveal>
                     </div>
-                    <BookingWizard t={t.booking} lang={lang} />
+                    <BookingWizard 
+                        t={t.booking} 
+                        lang={lang} 
+                        preselectedServiceId={preselectedServiceId}
+                        onResetPreselection={() => setPreselectedServiceId(null)}
+                    />
                 </div>
             </main>
 

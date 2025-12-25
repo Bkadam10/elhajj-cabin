@@ -8,7 +8,8 @@ import {
     Settings, 
     Briefcase, 
     LogOut, 
-    User
+    User,
+    ChevronRight
 } from 'lucide-react';
 
 interface AdminLayoutProps {
@@ -21,46 +22,52 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, activeTab, setActiv
     const handleLogout = async () => await supabase!.auth.signOut();
 
     const menuItems = [
-        { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard size={20} /> },
-        { id: 'appointments', label: 'Appointments', icon: <Calendar size={20} /> },
-        { id: 'slots', label: 'Slot Management', icon: <Clock size={20} /> },
-        { id: 'services', label: 'Services', icon: <Briefcase size={20} /> },
-        { id: 'settings', label: 'Settings', icon: <Settings size={20} /> },
+        { id: 'dashboard', label: 'Tableau de Bord', icon: <LayoutDashboard size={20} /> },
+        { id: 'appointments', label: 'Rendez-vous', icon: <Calendar size={20} /> },
+        { id: 'slots', label: 'Gestion Horaires', icon: <Clock size={20} /> },
+        { id: 'services', label: 'Services & Soins', icon: <Briefcase size={20} /> },
+        { id: 'settings', label: 'Paramètres', icon: <Settings size={20} /> },
     ];
 
     return (
-        <div className="min-h-screen bg-stone-50 flex font-sans">
+        <div className="min-h-screen bg-[#F8FAFC] flex font-sans selection:bg-accent selection:text-white">
             {/* Sidebar */}
-            <aside className="w-64 bg-slate-900 text-white flex-shrink-0 hidden md:flex flex-col">
-                <div className="p-6 border-b border-slate-800 flex items-center gap-3">
-                    <div className="w-8 h-8 bg-primary rounded-md flex items-center justify-center font-bold font-serif">E</div>
-                    <span className="font-serif font-bold text-lg">Elhajj Admin</span>
+            <aside className="w-80 bg-[#0F172A] text-white flex-shrink-0 hidden lg:flex flex-col shadow-2xl relative z-20">
+                <div className="p-10 mb-6 flex flex-col items-center border-b border-white/5">
+                    <div className="w-16 h-16 bg-accent text-white rounded-2xl flex items-center justify-center font-bold font-serif text-3xl shadow-lg mb-6 rotate-3">E</div>
+                    <span className="font-serif font-bold text-xl tracking-tight">Elhajj Management</span>
+                    <span className="text-[10px] font-bold text-accent tracking-[0.4em] uppercase mt-2">Elite Dental Clinic</span>
                 </div>
                 
-                <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+                <nav className="flex-1 px-6 space-y-3 overflow-y-auto py-4">
                     {menuItems.map(item => (
                         <button
                             key={item.id}
                             onClick={() => setActiveTab(item.id)}
-                            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
+                            className={`w-full flex items-center justify-between px-6 py-4 rounded-2xl transition-all duration-500 group ${
                                 activeTab === item.id 
-                                ? 'bg-primary text-white shadow-lg' 
-                                : 'text-slate-400 hover:bg-slate-800 hover:text-white'
+                                ? 'bg-white/10 text-accent shadow-inner' 
+                                : 'text-slate-400 hover:bg-white/5 hover:text-white'
                             }`}
                         >
-                            {item.icon}
-                            <span className="font-medium">{item.label}</span>
+                            <div className="flex items-center gap-4">
+                                <span className={`${activeTab === item.id ? 'text-accent' : 'text-slate-500 group-hover:text-white'} transition-colors`}>
+                                    {item.icon}
+                                </span>
+                                <span className="font-bold text-sm tracking-wide">{item.label}</span>
+                            </div>
+                            {activeTab === item.id && <ChevronRight size={14} className="text-accent" />}
                         </button>
                     ))}
                 </nav>
 
-                <div className="p-4 border-t border-slate-800">
+                <div className="p-8 border-t border-white/5">
                     <button 
                         onClick={handleLogout}
-                        className="w-full flex items-center gap-3 px-4 py-3 text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+                        className="w-full flex items-center gap-4 px-6 py-4 text-rose-400 hover:bg-rose-500/10 rounded-2xl transition-all font-bold text-sm tracking-wide"
                     >
                         <LogOut size={20} />
-                        <span>Sign Out</span>
+                        <span>Déconnexion</span>
                     </button>
                 </div>
             </aside>
@@ -68,22 +75,28 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, activeTab, setActiv
             {/* Main Content */}
             <div className="flex-1 flex flex-col h-screen overflow-hidden">
                 {/* Topbar */}
-                <header className="bg-white border-b border-stone-200 p-4 flex justify-between items-center shadow-sm z-10">
-                    <div className="md:hidden font-serif font-bold text-primary">Elhajj Admin</div>
-                    <div className="flex-1"></div> {/* Spacer */}
-                    <div className="flex items-center gap-4">
+                <header className="bg-white/70 backdrop-blur-xl border-b border-slate-200/60 p-6 flex justify-between items-center z-10">
+                    <div className="lg:hidden flex items-center gap-3">
+                         <div className="w-8 h-8 bg-primary text-white rounded-lg flex items-center justify-center font-bold font-serif">E</div>
+                         <span className="font-serif font-bold text-primary">Elhajj Admin</span>
+                    </div>
+                    <div className="hidden lg:block">
+                         <h2 className="text-slate-400 font-bold text-[10px] uppercase tracking-[0.4em]">Gestionnaire de Cabinet</h2>
+                    </div>
+                    
+                    <div className="flex items-center gap-6">
                         <div className="text-right hidden sm:block">
-                            <div className="text-sm font-bold text-secondary">Dr. Elhajj</div>
-                            <div className="text-xs text-stone-400">Dentist & Owner</div>
+                            <div className="text-sm font-bold text-slate-900">Dr. Elhajj</div>
+                            <div className="text-[10px] font-bold text-accent uppercase tracking-widest">Administrateur</div>
                         </div>
-                        <div className="w-10 h-10 bg-stone-100 rounded-full flex items-center justify-center text-stone-500 border border-stone-200">
-                            <User size={20} />
+                        <div className="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-400 shadow-sm">
+                            <User size={24} strokeWidth={1.5} />
                         </div>
                     </div>
                 </header>
 
                 {/* Page Content */}
-                <main className="flex-1 overflow-auto p-6 md:p-8">
+                <main className="flex-1 overflow-auto p-8 lg:p-12 custom-scrollbar">
                     {children}
                 </main>
             </div>

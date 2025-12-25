@@ -18,61 +18,66 @@ const About: React.FC<AboutProps> = ({ t, lang }) => {
     ];
 
     const clinicImages = [
-        "https://pwturwmgzhcbhbwfdecl.supabase.co/storage/v1/object/public/clinic%20images/photo_2025-12-11_06-56-41.jpg",
-        "https://pwturwmgzhcbhbwfdecl.supabase.co/storage/v1/object/public/clinic%20images/photo_2025-12-11_06-56-53.jpg",
-        "https://pwturwmgzhcbhbwfdecl.supabase.co/storage/v1/object/public/clinic%20images/photo_2025-12-11_06-56-56.jpg"
+        { url: "https://pwturwmgzhcbhbwfdecl.supabase.co/storage/v1/object/public/clinic%20images/photo_2025-12-11_06-56-41.jpg", label: "Zone d'accueil" },
+        { url: "https://pwturwmgzhcbhbwfdecl.supabase.co/storage/v1/object/public/clinic%20images/photo_2025-12-11_06-56-53.jpg", label: "Cabinet Principal" },
+        { url: "https://pwturwmgzhcbhbwfdecl.supabase.co/storage/v1/object/public/clinic%20images/photo_2025-12-11_06-56-56.jpg", label: "Espace Soins" }
     ];
 
     return (
-        <section id="about" className="py-32 bg-white relative">
-            <div className="container mx-auto px-6 md:px-12">
-                <div className="grid lg:grid-cols-2 gap-16 items-start">
-                    
-                    {/* Left: Real Clinic Images (Horizontal Grid) */}
-                    <div className="relative">
-                        <ScrollReveal>
-                            <span className="text-secondary font-bold tracking-widest uppercase text-sm mb-4 block md:hidden">Our Clinic</span>
-                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                {clinicImages.map((img, idx) => (
-                                    <div key={idx} className="relative rounded-2xl overflow-hidden shadow-lg h-64 sm:h-80 group">
-                                        <img 
-                                            src={img} 
-                                            alt={`Elhajj Cabinet Interior ${idx + 1}`} 
-                                            className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
-                                        />
-                                        <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors"></div>
-                                    </div>
-                                ))}
-                            </div>
-                            {/* Decorative Background Element */}
-                            <div className="absolute -top-10 -left-10 w-full h-full bg-surface rounded-3xl -z-10 opacity-50"></div>
-                        </ScrollReveal>
-                    </div>
+        <section id="about" className="py-32 bg-white overflow-hidden">
+            <div className="container mx-auto px-6 lg:px-12">
+                <div className="flex flex-col lg:flex-row justify-between items-end gap-12 mb-24">
+                    <ScrollReveal className="max-w-3xl">
+                        <span className="text-accent font-bold tracking-[0.5em] uppercase text-[10px] mb-6 block">Héritage & Excellence</span>
+                        <h2 className="text-5xl md:text-7xl font-serif font-bold text-primary leading-[1.1] mb-8">
+                            {t.title}
+                        </h2>
+                    </ScrollReveal>
+                    <ScrollReveal delay={0.2} className="max-w-md pb-4">
+                        <p className="text-lg text-gray-400 font-light italic leading-relaxed border-l-2 border-gray-100 pl-8">
+                            "{t.content}"
+                        </p>
+                    </ScrollReveal>
+                </div>
 
-                    {/* Right: Text Content */}
-                    <div className="lg:pl-5">
-                        <ScrollReveal delay={0.2}>
-                            <span className="text-secondary font-bold tracking-widest uppercase text-sm mb-2 block">Who We Are</span>
-                            <h2 className="text-4xl md:text-5xl font-serif font-bold text-primary mb-6 leading-tight">
-                                {t.title}
-                            </h2>
-                            <p className="text-lg text-gray-500 leading-relaxed mb-10">
-                                {t.content}
-                            </p>
+                {/* The Editorial Horizontal Image Row */}
+                <ScrollReveal delay={0.3}>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32">
+                        {clinicImages.map((img, idx) => (
+                            <div 
+                                key={idx} 
+                                className="group relative h-[600px] overflow-hidden rounded-[40px] shadow-2xl"
+                            >
+                                <img 
+                                    src={img.url} 
+                                    alt={img.label} 
+                                    className="w-full h-full object-cover transition-transform duration-[2500ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700 flex flex-col justify-end p-10">
+                                    <span className="text-accent text-[10px] font-bold tracking-[0.4em] uppercase mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-700 delay-100">Visite Virtuelle</span>
+                                    <h3 className="text-white text-2xl font-serif font-bold transform translate-y-4 group-hover:translate-y-0 transition-transform duration-700 delay-200">{img.label}</h3>
+                                    <div className="w-12 h-1 bg-accent mt-6 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 delay-300 origin-left"></div>
+                                </div>
+                                {/* Thin elegant border overlay */}
+                                <div className="absolute inset-6 border border-white/10 rounded-[30px] pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                            </div>
+                        ))}
+                    </div>
+                </ScrollReveal>
 
-                            <div className="grid sm:grid-cols-2 gap-x-6 gap-y-10">
-                                {features.map((feature, idx) => (
-                                    <div key={idx} className="group">
-                                        <div className="w-14 h-14 bg-blue-50 text-primary rounded-xl flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-all duration-300 shadow-sm">
-                                            {feature.icon}
-                                        </div>
-                                        <h4 className="font-bold text-dark text-lg mb-2 group-hover:text-primary transition-colors">{feature.title}</h4>
-                                        <p className="text-sm text-gray-500 leading-relaxed">{feature.desc}</p>
-                                    </div>
-                                ))}
+                {/* Features Grid - Luxury Presentation */}
+                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12">
+                    {features.map((feature, idx) => (
+                        <ScrollReveal key={idx} delay={0.1 * idx}>
+                            <div className="group relative p-10 rounded-[40px] bg-[#FDFCFB] hover:bg-primary transition-all duration-700 border border-gray-100 hover:border-primary shadow-sm hover:shadow-2xl hover:-translate-y-4">
+                                <div className="w-20 h-20 bg-white shadow-md text-primary rounded-[24px] flex items-center justify-center mb-10 group-hover:bg-accent group-hover:text-white transition-all duration-500 group-hover:rotate-[15deg] group-hover:scale-110">
+                                    {feature.icon}
+                                </div>
+                                <h4 className="font-bold text-primary text-xl mb-4 group-hover:text-white transition-colors tracking-tight">{feature.title}</h4>
+                                <p className="text-gray-400 leading-relaxed text-sm group-hover:text-gray-300 transition-colors font-light italic">{feature.desc}</p>
                             </div>
                         </ScrollReveal>
-                    </div>
+                    ))}
                 </div>
             </div>
         </section>
