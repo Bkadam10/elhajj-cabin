@@ -30,14 +30,12 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang, t }) => {
         setIsOpen(false);
         e.preventDefault();
         
-        // Handle normal section scrolling
         const element = document.querySelector(href);
         if (element) {
             element.scrollIntoView({ behavior: 'smooth' });
         }
     };
 
-    // Robust hash navigation for Admin view
     const goToAdmin = () => {
         setIsOpen(false);
         window.location.hash = 'admin';
@@ -47,22 +45,22 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang, t }) => {
         <header 
             className={`fixed w-full z-50 transition-all duration-700 ${
                 scrolled 
-                ? 'bg-white/80 backdrop-blur-2xl py-3 border-b border-gray-100 shadow-xl' 
-                : 'bg-transparent py-8 border-b border-transparent'
+                ? 'bg-white/90 backdrop-blur-2xl py-2 md:py-3 border-b border-gray-100 shadow-xl' 
+                : 'bg-transparent py-4 md:py-8 border-b border-transparent'
             }`}
         >
-            <div className="container mx-auto px-6 lg:px-12 flex justify-between items-center">
+            <div className="container mx-auto px-5 lg:px-12 flex justify-between items-center">
                 <a 
                     href="#home" 
                     onClick={(e) => handleNavClick(e, '#home')}
-                    className="flex items-center gap-4 group"
+                    className="flex items-center gap-3 md:gap-4 group"
                 >
-                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center font-serif font-bold text-2xl transition-all duration-500 group-hover:rotate-[10deg] ${scrolled ? 'bg-primary text-white shadow-lg' : 'bg-white text-primary'}`}>
+                    <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl flex items-center justify-center font-serif font-bold text-xl md:text-2xl transition-all duration-500 group-hover:rotate-[10deg] ${scrolled ? 'bg-primary text-white shadow-lg' : 'bg-white text-primary'}`}>
                         E
                     </div>
-                    <div className="hidden sm:block">
-                        <span className={`text-2xl font-bold block leading-none font-serif tracking-tight transition-colors duration-500 ${scrolled ? 'text-primary' : 'text-white'}`}>Elhajj</span>
-                        <span className={`text-[11px] font-bold tracking-[0.4em] uppercase transition-colors duration-500 ${scrolled ? 'text-accent' : 'text-accent/80'}`}>Cabinet</span>
+                    <div className="block">
+                        <span className={`text-lg md:text-2xl font-bold block leading-none font-serif tracking-tight transition-colors duration-500 ${scrolled ? 'text-primary' : 'text-white'}`}>Elhajj</span>
+                        <span className={`text-[9px] md:text-[11px] font-bold tracking-[0.3em] md:tracking-[0.4em] uppercase transition-colors duration-500 ${scrolled ? 'text-accent' : 'text-accent/80'}`}>Cabinet</span>
                     </div>
                 </a>
 
@@ -90,7 +88,6 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang, t }) => {
                             <span>{lang === 'fr' ? 'AR' : 'FR'}</span>
                         </button>
 
-                        {/* Programmatic Admin Trigger */}
                         <button 
                             onClick={goToAdmin}
                             className={`p-2 transition-all duration-500 rounded-lg hover:bg-accent/10 ${scrolled ? 'text-gray-300 hover:text-accent' : 'text-white/20 hover:text-accent'}`}
@@ -103,55 +100,54 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang, t }) => {
                     <a 
                         href="#booking-section"
                         onClick={(e) => handleNavClick(e, '#booking-section')}
-                        className={`px-10 py-4 rounded-full text-[13px] font-bold uppercase tracking-[0.2em] transition-all duration-500 shadow-2xl hover:-translate-y-1.5 flex items-center gap-3 ${
+                        className={`px-8 py-4 rounded-full text-[12px] font-bold uppercase tracking-[0.2em] transition-all duration-500 shadow-2xl hover:-translate-y-1 flex items-center gap-3 ${
                             scrolled 
                             ? 'bg-primary text-white hover:bg-secondary' 
                             : 'bg-white text-primary hover:bg-accent hover:text-white'
                         }`}
                     >
                         {t.book}
-                        <ArrowRight size={16} />
+                        <ArrowRight size={14} />
                     </a>
                 </div>
 
-                <div className="md:hidden flex items-center gap-6">
+                <div className="md:hidden flex items-center gap-4">
                     <button 
-                        className={`p-2 transition-colors ${scrolled ? 'text-primary' : 'text-white'}`}
+                        onClick={() => setLang(lang === 'fr' ? 'ar' : 'fr')}
+                        className={`text-[10px] font-bold tracking-widest p-2 rounded-lg border ${scrolled ? 'border-gray-100 text-gray-500' : 'border-white/20 text-white'}`}
+                    >
+                        {lang === 'fr' ? 'AR' : 'FR'}
+                    </button>
+                    <button 
+                        className={`p-1.5 transition-colors ${scrolled ? 'text-primary' : 'text-white'}`}
                         onClick={() => setIsOpen(!isOpen)}
                     >
-                        {isOpen ? <X size={32} /> : <Menu size={32} />}
+                        {isOpen ? <X size={24} /> : <Menu size={24} />}
                     </button>
                 </div>
             </div>
 
-            {/* Premium Mobile Menu Overlay */}
-            <div className={`fixed inset-0 bg-primary/98 backdrop-blur-3xl z-40 flex flex-col justify-center items-center space-y-12 transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] md:hidden ${isOpen ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}`}>
+            {/* Mobile Menu Overlay - Refined Spacing */}
+            <div className={`fixed inset-0 bg-primary/98 backdrop-blur-3xl z-40 flex flex-col justify-center items-center space-y-8 transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] md:hidden ${isOpen ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}`}>
                 {navLinks.map((link, idx) => (
                     <a 
                         key={link.label} 
                         href={link.href}
                         onClick={(e) => handleNavClick(e, link.href)}
-                        className={`text-5xl font-serif font-bold text-white/50 hover:text-white transition-all duration-500 tracking-tighter transform ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
+                        className={`text-3xl font-serif font-bold text-white/50 hover:text-white transition-all duration-500 tracking-tighter transform ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
                         style={{ transitionDelay: `${idx * 100}ms` }}
                     >
                         {link.label}
                     </a>
                 ))}
                 
-                <div className="flex flex-col items-center gap-8 mt-12">
-                    <button 
-                        onClick={() => setLang(lang === 'fr' ? 'ar' : 'fr')}
-                        className="text-accent text-xl font-bold uppercase tracking-widest"
-                    >
-                        {lang === 'fr' ? 'Switch to Arabic' : 'تغيير للفرنسية'}
-                    </button>
-                    
+                <div className="flex flex-col items-center gap-6 mt-8">
                     <button 
                         onClick={goToAdmin}
-                        className="flex items-center gap-3 text-white/30 hover:text-white transition-colors uppercase tracking-[0.4em] text-[10px] font-bold"
+                        className="flex items-center gap-3 text-white/30 hover:text-white transition-colors uppercase tracking-[0.3em] text-[9px] font-bold px-6 py-3 border border-white/10 rounded-full"
                     >
-                        <Lock size={14} />
-                        Gestion Cabinet
+                        <Lock size={12} />
+                        Portail Gestion
                     </button>
                 </div>
             </div>
